@@ -48,7 +48,7 @@ cd /path/to/virtualenv's name/
 ```
 Activate virtualenv:
 ```angular2html
-call virtualenv/Scripts/activate.bat
+call Scripts/activate.bat
 ```
 Install requirements.txt:
 ```angular2html
