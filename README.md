@@ -64,7 +64,7 @@ python main.py
 ```
 ## Usage
 After launch GUI of ArcFace, we have this interface.
-![Image](https://www.github.com/tiencong1599/ArcFace/datasets/images/GUI.jpg)
+![Image](https://github.com/s3lab-sectic/ai_face_recognition_system_python/blob/main/datasets/images/GUI.jpg)
 ## Elements
 
 * Button:
