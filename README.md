@@ -34,17 +34,18 @@ Clone repos at github:
 ```angular2html
 git clone https://github.com/s3lab-sectic/ai_face_recognition_system_python.git
 ```
-Install virtualenv in your directory which you want:
+Install virtualenv library: 
 ```
 pip install virtualenv
 ```
-Create virtualenv:
+Create virtualenv into directory which you want:
 ```angular2html
+cd /to/directory/which/you/want/to/create
 virtualenv "your virtualenv's name"
 ```
 After that go to env folder and activate virtualenv:
 ```angular2html
-cd /path/to/virtualenv's name/
+cd /go/to/virtualenv/foler/which/just/created
 ```
 Activate virtualenv:
 ```angular2html
