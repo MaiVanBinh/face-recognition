@@ -7,7 +7,7 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import KFold
 from softmax import SoftMax
-from main_window import *
+from MainDialog import *
 import sys
 sys.path.append('../insightface/deploy')
 sys.path.append('../insightface/src/common')
@@ -25,7 +25,7 @@ import constants
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
-        self.ui = Ui_UIT()
+        self.ui = Ui_MainDialog()
         self.ui.setupUi(self)
         self.setWindowTitle("UIT Face Recognition")
         self._mutex = QMutex()
@@ -59,23 +59,21 @@ class MainWindow(QMainWindow):
         #############
         # set icon
         self.icon1 = cv2.imread('UIT-logo.jpg')
-        self.ui.capture_icon_label.setPixmap(
-            QPixmap.fromImage(self.display_image(self.icon1, self.ui.capture_icon_label)))
-        self.ui.record_label.setPixmap(QPixmap.fromImage(self.display_image(self.icon1,self.ui.record_label)))
-        self.ui.exit_btn.clicked.connect(self.close)
+        self.ui.lblLiveView.setPixmap(QPixmap.fromImage(self.display_image(self.icon1, self.ui.lblLiveView)))
+        self.ui.btnExit.clicked.connect(self.close)
 
         # create timer for record action
         self.timer_record = QTimer()
         self.timer_record.timeout.connect(self.detectFaces)
-        self.ui.record_btn.clicked.connect(self.controlTimer)
-        #create timer for capture action
+        self.ui.btnRun.clicked.connect(self.controlTimer)
+        # create timer for capture action
         self.timer_capture = QTimer()
         self.timer_capture.timeout.connect(self.capture)
-        self.ui.capture_btn.clicked.connect(self.controlTimerCapture)
-        #re-embedding vector
-        self.ui.re_embedding_btn.clicked.connect(self.re_embedding)
-        #re-train softmax
-        self.ui.re_train_btn.clicked.connect(self.re_train)
+        self.ui.btnRegister.clicked.connect(self.controlTimerCapture)
+        # re-embedding vector
+        self.ui.btnRegenerateFeatures.clicked.connect(self.re_embedding)
+        # re-train softmax
+        self.ui.btnReTrain.clicked.connect(self.re_train)
 
 
     def display_image(self, image, element):
@@ -108,8 +106,7 @@ class MainWindow(QMainWindow):
 
         ret, frame = self.cap.read()
         # resize frame image
-        frame = cv2.resize(frame, (self.ui.record_label.width(), self.ui.record_label.height()),
-                           interpolation=cv2.INTER_AREA)
+        frame = cv2.resize(frame, (self.ui.lblLiveView.width(), self.ui.lblLiveView.height()), interpolation=cv2.INTER_AREA)
         self.frames += 1
         rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
@@ -159,7 +156,7 @@ class MainWindow(QMainWindow):
                     y = bbox[1] - 10 if bbox[1] - 10 > 10 else bbox[1] + 10
                     cv2.putText(frame, text, (bbox[0], y), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
                     cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (255, 0, 0), 2)
-        self.ui.record_label.setPixmap(QPixmap.fromImage(self.display_image(frame,self.ui.record_label)))
+        self.ui.lblLiveView.setPixmap(QPixmap.fromImage(self.display_image(frame, self.ui.lblLiveView)))
 
     def controlTimer(self):
         # if timer is stopped
@@ -169,7 +166,7 @@ class MainWindow(QMainWindow):
             # start timer
             self.timer_record.start(2)
             # update control_bt text
-            self.ui.record_btn.setText("Stop")
+            self.ui.btnRun.setText("Stop")
 
         # if timer is started
         else:
@@ -178,8 +175,8 @@ class MainWindow(QMainWindow):
             # release video capture
             self.cap.release()
             # update control_bt text
-            self.ui.record_label.setPixmap(QPixmap.fromImage(self.display_image(self.icon1, self.ui.record_label)))
-            self.ui.record_btn.setText("Record")
+            self.ui.lblLiveView.setPixmap(QPixmap.fromImage(self.display_image(self.icon1, self.ui.lblLiveView)))
+            self.ui.btnRun.setText("Run")
 
     def capture(self):
         ret, frame = self.capture.read()
@@ -209,46 +206,45 @@ class MainWindow(QMainWindow):
             cv2.putText(frame, 'Numbers of Image: {}'.format(self.count), (30, 15), cv2.FONT_HERSHEY_DUPLEX, 0.7, (0, 0, 255), 2)
             cv2.putText(frame, 'Time: {}'.format(self.frames_capture).format(), (30, 45), cv2.FONT_HERSHEY_DUPLEX, 0.7, (0, 0, 255), 2)
             if self.count <=5:
-                if self.frames_capture % 10==0:
-                    #cv2.imwrite('../datasets/unlabeled_faces/{}.jpg'.format(self.frames_capture),nimg)
+                if self.frames_capture % 10 == 0:
                     self.trackers.append(nimg)
                     cv2.rectangle(frame, (self.max_bbox[0], self.max_bbox[1]), (self.max_bbox[2], self.max_bbox[3]),
                                   (0, 0, 255), 3)
-                    self.count+=1
+                    self.count += 1
             else:
                 if not os.path.exists('../datasets/train/' + self.name_edit + '-' + self.id_edit):
                     os.mkdir('../datasets/train/' + self.name_edit + '-' + self.id_edit)
-                    for i,j in enumerate(self.trackers):
+                    for i, j in enumerate(self.trackers):
                         cv2.imwrite('../datasets/train/'+self.name_edit+'-'+self.id_edit+'/{}.jpg'.format(i),j)
                 else:
-                    for i,j in enumerate(self.trackers):
+                    for i, j in enumerate(self.trackers):
                         cv2.imwrite('../datasets/train/'+self.name_edit+'-'+self.id_edit+'/{}.jpg'.format(i),j)
-                QMessageBox.information(self, "Error" , "Đủ số lượng ảnh")
+                QMessageBox.information(self, "Information", "We captures enough face for register a new person")
                 self.trackers.clear()
                 self.capture.release()
                 self.timer_capture.stop()
-                self.ui.name_txt.clear()
-                self.ui.id_txt.clear()
+                self.ui.txtRegisterName.clear()
+                self.ui.txtRegisterCode.clear()
                 self.count=0
                 self.frames_capture=0
-                self.ui.capture_btn.setText("Capture")
-            self.ui.capture_icon_label.setPixmap(
-                QPixmap.fromImage(self.display_image(frame, self.ui.capture_icon_label)))
+                self.ui.btnRegister.setText("Start Register")
+            self.ui.lblLiveView.setPixmap(
+                QPixmap.fromImage(self.display_image(frame, self.ui.lblLiveView)))
 
     def controlTimerCapture(self):
         # if timer is stopped
         if not self.timer_capture.isActive():
             # create video capture
-            self.name_edit = self.ui.name_txt.text()
-            self.id_edit = self.ui.id_txt.text()
+            self.name_edit = self.ui.txtRegisterName.text()
+            self.id_edit = self.ui.txtRegisterCode.text()
             if self.id_edit == '' or self.name_edit == '':
-                QMessageBox.information(self, "Error", "Không được bỏ trống tên và mã số nhân viên")
+                QMessageBox.information(self, "Warning", "You must input name and code to start register a new face")
             else:
                 self.capture = cv2.VideoCapture(0)
                 # start timer
                 self.timer_capture.start(30)
                 # update control_bt text
-                self.ui.capture_btn.setText("Stop")
+                self.ui.btnRegister.setText("Stop Register")
 
         # if timer is started
         else:
@@ -256,14 +252,14 @@ class MainWindow(QMainWindow):
             self.timer_capture.stop()
             # release video capture
             self.capture.release()
-            self.ui.name_txt.clear()
-            self.ui.id_txt.clear()
-            self.count=0
-            self.frames_capture=0
+            self.ui.txtRegisterName.clear()
+            self.ui.txtRegisterCode.clear()
+            self.count = 0
+            self.frames_capture = 0
             self.trackers.clear()
             # update control_bt text
-            self.ui.capture_icon_label.setPixmap(QPixmap.fromImage(self.display_image(self.icon1, self.ui.record_label)))
-            self.ui.capture_btn.setText("Capture")
+            self.ui.lblLiveView.setPixmap(QPixmap.fromImage(self.display_image(self.icon1, self.ui.lblLiveView)))
+            self.ui.btnRegister.setText("Start Register")
     def re_embedding(self):
         knownEmbeddings = []
         knownNames = []
@@ -311,7 +307,7 @@ class MainWindow(QMainWindow):
         f = open(args['embeddings'], "wb")
         f.write(pickle.dumps(data))
         f.close()
-        QMessageBox.information(self,"Error","Embedding hoàn tất")
+        QMessageBox.information(self, "Information", "The new feature vector has been generated successfully")
     def re_train(self):
         args = {'embeddings': constants.FACE_DATA_VECTOR_PATH,
                 'model': constants.FACE_MODEL_PATH,
@@ -363,10 +359,7 @@ class MainWindow(QMainWindow):
         f = open(args["le"], "wb")
         f.write(pickle.dumps(le))
         f.close()
-        QMessageBox.information(self,"Error","Train hoàn tất")
-
-
-
+        QMessageBox.information(self, "Information", "The training process have been completed. A new model was created and ready for using.")
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     # create and show mainWindow

@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>UIT</class>
- <widget class="QDialog" name="UIT">
+ <class>MainDialog</class>
+ <widget class="QDialog" name="MainDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1322</width>
+    <width>760</width>
     <height>656</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLabel" name="capture_icon_label">
+  <widget class="QLabel" name="lblLiveView">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>640</width>
+     <width>741</width>
      <height>480</height>
     </rect>
    </property>
@@ -26,20 +26,7 @@
     <string>TextLabel</string>
    </property>
   </widget>
-  <widget class="QLabel" name="record_label">
-   <property name="geometry">
-    <rect>
-     <x>660</x>
-     <y>10</y>
-     <width>640</width>
-     <height>480</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="capture_btn">
+  <widget class="QPushButton" name="btnRegister">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -49,10 +36,10 @@
     </rect>
    </property>
    <property name="text">
-    <string>Capture</string>
+    <string>Start Register</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="re_train_btn">
+  <widget class="QPushButton" name="btnReTrain">
    <property name="geometry">
     <rect>
      <x>350</x>
@@ -62,10 +49,10 @@
     </rect>
    </property>
    <property name="text">
-    <string>Re-train</string>
+    <string>Train</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="name_txt">
+  <widget class="QLineEdit" name="txtRegisterName">
    <property name="geometry">
     <rect>
      <x>70</x>
@@ -75,7 +62,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="name">
+  <widget class="QLabel" name="lblRegisterName">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -88,7 +75,7 @@
     <string>Name:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="id">
+  <widget class="QLabel" name="lblRegisterCode">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -98,10 +85,10 @@
     </rect>
    </property>
    <property name="text">
-    <string>ID:</string>
+    <string>Code:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="id_txt">
+  <widget class="QLineEdit" name="txtRegisterCode">
    <property name="geometry">
     <rect>
      <x>70</x>
@@ -111,12 +98,12 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="exit_btn">
+  <widget class="QPushButton" name="btnExit">
    <property name="geometry">
     <rect>
-     <x>1130</x>
+     <x>580</x>
      <y>620</y>
-     <width>93</width>
+     <width>171</width>
      <height>28</height>
     </rect>
    </property>
@@ -124,30 +111,30 @@
     <string>Exit</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="record_btn">
+  <widget class="QPushButton" name="btnRun">
    <property name="geometry">
     <rect>
-     <x>990</x>
+     <x>580</x>
      <y>530</y>
      <width>171</width>
      <height>28</height>
     </rect>
    </property>
    <property name="text">
-    <string>Record</string>
+    <string>Run</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="re_embedding_btn">
+  <widget class="QPushButton" name="btnRegenerateFeatures">
    <property name="geometry">
     <rect>
-     <x>670</x>
+     <x>200</x>
      <y>530</y>
      <width>141</width>
      <height>28</height>
     </rect>
    </property>
    <property name="text">
-    <string>Re-embedding</string>
+    <string>Generate Feature Vector</string>
    </property>
   </widget>
  </widget>
