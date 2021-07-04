@@ -34,34 +34,24 @@ Clone repos at github:
 ```angular2html
 git clone https://github.com/s3lab-sectic/ai_face_recognition_system_python.git
 ```
-Install virtualenv library: 
-```
-pip install virtualenv
-```
-Create virtualenv into directory which you want:
+Install Pycharm community version
+Run Pycharm and open project by open the code folder
+Setting Python interpreter:
 ```angular2html
-cd /to/directory/which/you/want/to/create
-virtualenv "your virtualenv's name"
+Setting -> Project: ABC -> Python Interpreter -> C:\Users\[USER NAME]\AppData\Local\Programs\Python\Python36 
 ```
-After that go to env folder and activate virtualenv:
-```angular2html
-cd /go/to/virtualenv/foler/which/just/created
-```
-Activate virtualenv:
-```angular2html
-call Scripts/activate.bat
-```
-Install requirements.txt:
+Install requirements.txt, run terminal inside pycharm
 ```angular2html
 pip install -r requirements.txt
 ```
-Go to src folder:
+Setup external Tool: QTDesign and PyUIC
 ```angular2html
-cd src
+ Setting -> Tool -> External Tools -> Name: QTDesigner, Program: [Project folder]\venv\Lib\site-packages\qt5_applications\Qt\bin\designer.exe, working directory: $ProjectFileDir$
+ Setting -> Tool -> External Tools -> Name: PyUIC, Program: [Project folder]\venv\Scripts\pyuic5.exe, working directory: $ProjectFileDir$
 ```
 Run main.py to launch GUI.
 ```angular2html
-python main.py
+Select main.py on pycharm -> run
 ```
 ## Usage
 After launch GUI of ArcFace, we have this interface.
@@ -75,9 +65,9 @@ After launch GUI of ArcFace, we have this interface.
         - The numbers of image of each staff are 5 images. 
         - After capturing 5 images of employee, it saves those images into folder with Employee' name.
       
-    - Re-train: Re train model after re-embedding all vectors.
-    - Re-embedding: Re-embedding after adding new employee.
-    - Record: Start to recognize with camera stream.
+    - Re-train: base on the face vector and label, train again the model.
+    - Re-embedding: generate the vector for all face, do it after adding new employee.
+    - Run: Start to recognize with camera stream.
     - Exit: Exit the apps.
     
 * Widget:

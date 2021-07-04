@@ -1,5 +1,5 @@
-tensorflow=='2.2.0'
-tensorflow-gpu=='2.2.0'
+tensorflow=="2.2.0"
+tensorflow-gpu=="2.2.0"
 keras
 mxnet
 sklearn
@@ -12,4 +12,5 @@ dlib
 imutils
 Pillow
 PyQt5
+pyqt5-tools
 mtcnn
