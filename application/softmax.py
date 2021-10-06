@@ -1,6 +1,6 @@
 from keras.layers import Dense, Dropout
 from keras.models import Sequential
-from keras.optimizers import Adam
+from tensorflow.keras.optimizers import Adam
 import keras
 
 class SoftMax():

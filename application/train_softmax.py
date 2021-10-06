@@ -10,16 +10,16 @@ import pickle
 # Construct the argumet parser and parse the argument
 ap = argparse.ArgumentParser()
 
-ap.add_argument("--embeddings", default="outputs/embeddings.pickle",
+ap.add_argument("--embeddings", default="../outputs/embeddings.pickle",
                 help="path to serialized db of facial embeddings")
-ap.add_argument("--model", default="outputs/my_model.h5",
+ap.add_argument("--model", default="../outputs/my_model.h5",
                 help="path to output trained model")
-ap.add_argument("--le", default="outputs/le.pickle",
+ap.add_argument("--le", default="../outputs/le.pickle",
                 help="path to output label encoder")
 
-args = {'embeddings':'outputs/embeddings.pickle',
-        'model':'outputs/my_model.h5',
-        'le':'outputs/le.pickle'}
+args = {'embeddings':'../outputs/embeddings.pickle',
+        'model':'../outputs/my_model.h5',
+        'le':'../outputs/le.pickle'}
 
 # Load the face embeddings
 data = pickle.loads(open(args["embeddings"], "rb").read())
@@ -87,5 +87,5 @@ plt.title('model loss')
 plt.ylabel('loss')
 plt.xlabel('epochs')
 plt.legend(['train', 'test'], loc='upper left')
-plt.savefig('outputs/accuracy_loss.png')
+plt.savefig('../outputs/accuracy_loss.png')
 plt.show()

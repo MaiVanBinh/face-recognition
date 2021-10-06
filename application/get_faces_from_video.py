@@ -13,7 +13,7 @@ import argparse
 
 ap = argparse.ArgumentParser()
 
-ap.add_argument("--video", required=True,
+ap.add_argument("--image", required=True, default="../datasets/videos_input/GOT_actor.mp4",
                 help="Number of faces that camera will get")
 ap.add_argument("--output", default="../datasets/unlabeled_faces",
                 help="Path to faces output")
