@@ -1,0 +1,17 @@
+from get_faces_from_image import get_faces_from_image
+from train_softmax import train
+from recognizer_image import recognizer_image
+flag = "recognizer"
+
+if flag == "resgiter":
+    # resgiter face for persion
+    get_faces_from_image(imagePath="../datasets/test/001.jpg", nameFolder="binh")
+elif flag == "train":
+    # Retrain model
+    status = train()
+    print(status)
+elif flag == "recognizer":
+    # recognizer person in image
+    result = recognizer_image(pathImageIn="../datasets/test/002.jpg", pathImageOut="../datasets/test/img_test_2.jpg")
+    print(result)
+
