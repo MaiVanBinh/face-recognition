@@ -1,3 +1,7 @@
+```
+
+```
+
 # Face Recognition with InsightFace
 
 Recognize and manipulate faces with Python and its support libraries.
@@ -63,3 +67,26 @@ Install requirements.txt, run terminal inside pycharm
 ```angular2html
 pip install -r requirements.txt
 ```
+
+## Usage
+
+1. Resgiter face for person
+   File get_faces_from_image.py in folder application
+   ```python
+   from get_faces_from_image import get_faces_from_image
+   get_faces_from_image(imagePath="../datasets/test/001.jpg", nameFolder="binh")
+   ```
+2. Retrain model
+   File train_softmax.py.py in folder application
+   ```python
+   from train_softmax import train
+   status = train()
+   print(status)
+   ```
+3. Recognizer people in image
+   File recognizer_image.py in folder application
+   ```python
+   from recognizer_image import recognizer_image
+   result = recognizer_image(pathImageIn="../datasets/test/002.jpg", pathImageOut="../datasets/test/img_test_2.jpg")
+   print(result)
+   ```
