@@ -4,7 +4,7 @@ from recognizer_image import recognizer_image
 flag = "recognizer"
 
 if flag == "resgiter":
-    # resgiter face for persion
+    # resgiter face for person
     get_faces_from_image(imagePath="../datasets/test/001.jpg", nameFolder="binh")
 elif flag == "train":
     # Retrain model

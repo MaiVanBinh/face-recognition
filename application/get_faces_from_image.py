@@ -45,6 +45,6 @@ def get_faces_from_image(imagePath, nameFolder):
                 os.makedirs(outPath)
             cv2.imwrite(os.path.join(outPath, "{}.jpg".format(faces+1)), nimg)
             cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (255, 0, 0), 2)
-            print(bbox[1], bbox[3], bbox[0],bbox[2])
+            # print(bbox[1], bbox[3], bbox[0],bbox[2])
             faces += 1
 
