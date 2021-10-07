@@ -1,8 +1,8 @@
-tensorflow=="2.2.0"
-tensorflow-gpu=="2.2.0"
-keras
-mxnet
-sklearn
+tensorflow=2.6.0
+tensorflow-gpu
+keras=2.6.0
+mxnet=1.7.0
+sklearn=1.0
 easydict
 opencv-python
 matplotlib
